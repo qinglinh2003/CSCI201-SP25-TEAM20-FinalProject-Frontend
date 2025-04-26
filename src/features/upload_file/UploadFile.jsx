@@ -5,7 +5,6 @@ function UploadFile(){
         <div>
             <h1>Upload File</h1>
             <Link to="/">Back</Link>
-
         </div>
     )
 }
