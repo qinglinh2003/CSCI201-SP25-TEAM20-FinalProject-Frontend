@@ -1,0 +1,18 @@
+.modalContainer{
+    font-family:"Sans-serif:";
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 50%;
+    margin: 0 auto;
+    /*max-width: 640px;*/
+    /*max-height: 80vh;*/
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.modeSwitcher{
+
+}
