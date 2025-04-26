@@ -1,18 +1,87 @@
 .modalContainer{
-    font-family:"Sans-serif:";
+    font-family: 'Roboto Condensed', sans-serif;
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     width: 50%;
     margin: 0 auto;
-    /*max-width: 640px;*/
-    /*max-height: 80vh;*/
     display: flex;
     flex-direction: column;
     overflow: auto;
 }
 
-.modeSwitcher{
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.title{
+    padding: 11px 0;
+    font-weight: bold;
+    font-size: 1.5rem;
 
 }
+
+.closeButtonWrapper{
+    padding: 11px;
+    color:darkgray;
+    border-radius: 10px;
+}
+
+.modeSwitcher{
+    display: flex;
+}
+
+.modeButton{
+    font-weight: bold;
+    padding: 0.3em 0em;
+    margin: 0.6rem  0.5rem 0.6rem  0rem;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+    background-color: white;
+    width:100px;
+    height:16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.fileUploadRegion {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #cacaca;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+.fileIcon{
+    height: 50px;
+    width: 50px;
+    color:#cacaca;
+}
+
+.fileUploadInstruction{
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+
+.browseText{
+    color:#396aff;
+}
+
+
+
+
+
