@@ -8,7 +8,7 @@ import {
     faFileCsv,
     faChalkboardUser,
     faBook,
-    faInfoCircle
+    faInfoCircle, faFile, faArrowUpFromBracket, faTriangleExclamation
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./UploadFile.module.css";
 import CustomTimePicker from "../../components/TimePicker";
@@ -39,7 +39,8 @@ function UploadFile(){
     const [dueTimeError, setDueTimeError] = React.useState('');
 
     const [file, setFile] = React.useState(null);
-
+    const [fileError, setFileError] = React.useState(null);
+    const [dragActive, setDragActive] = React.useState(false);
 
     const resetInputRegion = ()=>{
         setCourseName('');
@@ -49,9 +50,69 @@ function UploadFile(){
         setDueTime(new Date(new Date().setHours(23,59,0,0)));
     }
 
+    const resetFile = () => {
+        setFile(null);
+        if(fileInputRef.current){
+            fileInputRef.current.value = "";
+        }
+    }
+
+    const handleModeSwitch = (newMode) =>{
+        setMode(newMode)
+        if(newMode === 'manual'){
+            resetFile();
+        }else if(newMode === 'file'){
+            resetInputRegion();
+            setFileError(false);
+        }
+    }
+
     const handleFileExchange =(e) => {
         setFile(e.target.files[0]);
     }
+
+    const handleDragEnter = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDragActive(true);
+    };
+
+    const handleDragLeave = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDragActive(false);
+    };
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDragActive(false);
+
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            const droppedFile = e.dataTransfer.files[0];
+            if (droppedFile.name.endsWith('.csv')) {
+                setFile(droppedFile);
+            }else{
+                setFileError(true);
+                resetFile();
+            }
+        }
+    };
+
+    const formatFileSize = (size) => {
+        if (size < 1024) {
+            return `${size} B`;
+        } else if (size < 1024 * 1024) {
+            return `${(size / 1024).toFixed(1)} KB`;
+        } else {
+            return `${(size / (1024 * 1024)).toFixed(2)} MB`;
+        }
+    };
 
     const validateInputs = () => {
         let isValid = true;
@@ -94,16 +155,13 @@ function UploadFile(){
         }
     };
 
-
-
-
-
     const handleSubmit = async ()=>{
         if(mode === "file"){
             const formData = new FormData();
             formData.append("file", file);
             try{
                 const response = await uploadFile(formData);
+                resetFile();
             }catch (error){
                 console.error(error);
             }
@@ -117,11 +175,11 @@ function UploadFile(){
                 dueTime.getMinutes().toString().padStart(2, '0');
 
             const assignmentData = {
-                courseName,
-                assignmentName,
-                description,
-                formattedDueDate,
-                formattedDueTime,
+                "courseName":courseName,
+                "assignmentName":assignmentName,
+                "dueDate":formattedDueDate,
+                "dueTime":formattedDueTime,
+                "description":description,
             }
             console.log(assignmentData);
             try{
@@ -134,7 +192,6 @@ function UploadFile(){
 
         }
     }
-
 
     return(
         <div className={styles.modalContainer}>
@@ -150,13 +207,13 @@ function UploadFile(){
             <div className={styles.modeSwitcher}>
                 <div
                     className={`${styles.modeButton} ${mode === 'manual' ? styles.active : ''}`}
-                    onClick={() => setMode('manual')}
+                    onClick={() => handleModeSwitch('manual')}
                 >
                     Manual Input
                 </div>
                 <div
                     className={`${styles.modeButton} ${mode === 'file' ? styles.active : ''}`}
-                    onClick={() => setMode('file')}
+                    onClick={() => handleModeSwitch('file')}
                 >
                     File Upload
                 </div>
@@ -231,8 +288,16 @@ function UploadFile(){
                         </div>
                     </div>
                 </div>)}
-                {mode === "file" && (<div className={styles.fileUploadRegion}>
-                    <FontAwesomeIcon icon={faFileCsv} className={styles.fileIcon}/>
+                {mode === "file" &&
+                    (<div
+                        className={`${styles.fileUploadRegion} ${dragActive ? styles.dragActive : ''}`}
+                        onDragEnter={handleDragEnter}
+                        onDragLeave={handleDragLeave}
+                        onDragOver={handleDragOver}
+                        onDrop={handleDrop}
+                    >
+
+                    <FontAwesomeIcon icon={faArrowUpFromBracket} className={styles.fileIcon}/>
                     <div className={styles.fileUploadInstruction}>
                         Drag and Drop or
                         <span className={styles.browseText}   onClick={
@@ -245,8 +310,36 @@ function UploadFile(){
                         ref={fileInputRef}
                         style={{display: 'none'}}
                         onChange={handleFileExchange}
+                        accept=".csv"
                     />
-                </div>)}
+                </div>
+            )}
+            {mode === 'file' &&  file &&
+                (<div className={styles.filePreviewWrapper}>
+                    <div className={styles.fileIconNameWrapper}>
+                        <FontAwesomeIcon icon={faFileCsv} className={styles.fileIcon}/>
+                       <div className={styles.fileName}>
+                        {file.name}
+                       </div>
+                    </div>
+                    <div className={styles.fileSize}>
+                        {formatFileSize(file.size)}
+                    </div>
+                </div>
+                )
+            }
+            {mode === 'file' && fileError && (
+                <div className={styles.fileError}>
+                    <FontAwesomeIcon className={styles.errorIcon} icon={faTriangleExclamation} />
+                    <div>Please upload a .csv file</div>
+                    <FontAwesomeIcon className={styles.closeIcon} icon={faXmark} onClick={() => setFileError(false)}/>
+                </div>
+            )
+
+
+
+            }
+
             </div>
             <hr className={styles.divider}/>
             <div className={styles.submitRegion}>

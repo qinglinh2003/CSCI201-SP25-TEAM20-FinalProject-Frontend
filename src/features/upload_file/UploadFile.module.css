@@ -183,6 +183,52 @@ a, a:visited {
     border: solid 2px #cc0000;
 }
 
+.filePreviewWrapper{
+    background-color: #f6f6f6;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    border-radius: 10px;
+}
+
+.filePreviewWrapper .fileIcon{
+    color: #396aff;
+}
+
+.fileIconNameWrapper{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.fileName{
+    font-family: Roboto;
+    font-weight: bold;
+}
+
+.fileSize{
+    font-family: Roboto;
+    color: #949494;
+    font-size: 1rem;
+}
+
+.fileError{
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:#bd0b17;
+    opacity: 90%;
+    color: white;
+    font-size: 1.2rem;
+    border-radius: 10px;
+}
+
+.errorIcon, .closeIcon{
+    font-size: 2rem;
+
+}
 
 .divider{
     border: none;
@@ -226,6 +272,7 @@ a, a:visited {
 .cancelButton:hover{
     background-color: #edecec;
 }
+
 
 
 
