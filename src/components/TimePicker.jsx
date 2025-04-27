@@ -14,6 +14,7 @@ export default function CustomTimePicker({
      disabled = false,
      size = "small",
      width=180,
+     error=false
  }) {
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -23,6 +24,11 @@ export default function CustomTimePicker({
                 onChange={onChange}
                 minTime={minTime}
                 maxTime={maxTime}
+                slotProps={{
+                    textField: {
+                        error: error,
+                    },
+                }}
                 ampm={ampm}
                 disabled={disabled}
                 renderInput={(params) => <TextField {...params} size={size} sx={{ width:width }}/>}

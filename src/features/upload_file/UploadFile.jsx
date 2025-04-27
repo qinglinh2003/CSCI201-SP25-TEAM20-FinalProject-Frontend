@@ -165,7 +165,7 @@ function UploadFile(){
                 {mode === "manual" && (<div className={styles.manualInputRegion}>
                     <div className={styles.inputWrapper}>
                         <label className={styles.inputLabel}>Course Name</label>
-                        <div className={styles.inputBar}>
+                        <div className={`${styles.inputBar} ${courseNameError ? styles.errorInput : ''}`}>
                             <FontAwesomeIcon className={styles.inputIcon} icon={faChalkboardUser}/>
                             <input
                                 type="text"
@@ -179,7 +179,7 @@ function UploadFile(){
                     </div>
                     <div className={styles.inputWrapper}>
                         <label className={styles.inputLabel}>Assignment Name</label>
-                        <div className={styles.inputBar}>
+                        <div className={`${styles.inputBar} ${assignmentNameError ? styles.errorInput: ''}`}>
                             <FontAwesomeIcon className={styles.inputIcon} icon={faBook}/>
                             <input type="text"
                                    value={assignmentName}
@@ -189,6 +189,7 @@ function UploadFile(){
                             />
                         </div>
                         {assignmentNameError && <div className={styles.errorMessage}>{assignmentNameError}</div>}
+
                     </div>
                     <div className={styles.inputWrapper}>
                         <label className={styles.inputLabel}> Assignment Due Date</label>
@@ -197,6 +198,7 @@ function UploadFile(){
                                 label="Due Date"
                                 value={dueDate}
                                 onChange={(newValue) => setDueDate(newValue)}
+                                error={!!dueDateError}
                                 minDate={new Date('2023-01-01')}
                                 maxDate={new Date('2025-12-31')}
                             />
@@ -206,11 +208,15 @@ function UploadFile(){
                             <CustomTimePicker
                                 label="Select Time"
                                 value={dueTime}
+                                error={!!dueTimeError}
                                 onChange={(newValue) => setDueTime(newValue)}
                                 width={400}
                             />
                         </div>
-                        {(dueDateError|| dueTimeError) && <div className={styles.errorMessage}>{dueDateError || dueTimeError}</div>}
+                        <div className={styles.dueDateTimeWrapper}>
+                            {dueDateError && <div className={styles.errorMessage}>{dueDateError}</div>}
+                            {dueTimeError && <div className={styles.errorMessage}>{dueTimeError}</div>}
+                        </div>
                     </div>
                     <div className={styles.inputWrapper}>
                     <label className={styles.inputLabel}>Description</label>

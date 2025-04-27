@@ -3,7 +3,6 @@ a, a:visited {
     text-decoration: none;
 }
 
-
 .modalContainer{
     font-family: 'Roboto Condensed', sans-serif;
     background-color: #ffffff;
@@ -137,6 +136,7 @@ a, a:visited {
     width: 100%;
     height: 56px;
     box-sizing: border-box;
+    transition: border-color 0.3s ease;
 }
 
 .inputBar:focus-within {
@@ -162,6 +162,27 @@ a, a:visited {
 .dateSelectorDivider{
     margin:0  20px;
 }
+
+.errorMessage{
+    color: #cc0000;
+    font-family: Poppins;
+    margin-left: 10px;
+}
+
+.dueDateTimeWrapper{
+    display: flex;
+    flex-direction: row;
+    gap:160px;
+}
+
+.errorInput{
+    border: solid 1px #cc0000;
+}
+
+.errorInput:focus-within{
+    border: solid 2px #cc0000;
+}
+
 
 .divider{
     border: none;
