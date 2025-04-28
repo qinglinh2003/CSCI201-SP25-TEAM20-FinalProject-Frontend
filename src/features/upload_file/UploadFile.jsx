@@ -254,7 +254,7 @@ function UploadFile(){
                             <CustomDatePicker
                                 label="Due Date"
                                 value={dueDate}
-                                onChange={(newValue) => setDueDate(newValue)}
+                                onChange={(newValue) => {setDueDate(newValue); setDueDateError('');}}
                                 error={!!dueDateError}
                                 minDate={new Date('2023-01-01')}
                                 maxDate={new Date('2025-12-31')}
@@ -266,7 +266,7 @@ function UploadFile(){
                                 label="Select Time"
                                 value={dueTime}
                                 error={!!dueTimeError}
-                                onChange={(newValue) => setDueTime(newValue)}
+                                onChange={(newValue) => {setDueTime(newValue); setDueTimeError('');}}
                                 width={400}
                             />
                         </div>
