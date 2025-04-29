@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { markCompleteAssignment, editAssignmentInfo, removeAssignment} from "../../services/assignmentService";
 import { getCourseAssignments} from "../../services/courseService";
+import { CourseHeader } from '../../components/CourseHeader';
+import { AssignmentList } from '../../components/AssignmentList';
 
 /*
 * IMPORTANT! Use this .module.css file so that the styles are contained for the current module instead of interfering with other files
@@ -91,42 +93,40 @@ function CoursePage(){
         }
     }
 
+    const courseInfo = {
+      id: "CSCI 270",
+      days: "T/Th",
+      time: "11:00AM - 12:20PM"
+    };
+  
+    const assignmentsList = [
+      {
+        name: "Group Project Assignment1",
+        dueDate: "May 13th 11:59PM",
+        description: ""
+      },
+      {
+        name: "Group Project Assignment1",
+        dueDate: "May 13th 11:59PM",
+        description: ""
+      }
+    ];
+
 
     return(
-        <div className={styles.courseDetailPage}>
-        <div className={styles.rectangle}></div>
-        <div className={styles.content}>
-          <div className={styles.courseTitle}>
-            <div id={styles.courseID}>CSCI 270</div>
-            <div id={styles.day}>T/Th</div>
-            <div id={styles.time}>11:00AM - 12:20PM</div>
-          </div>
-          <div className={styles.dashedLine}></div>
-          <div className={styles.assignmentTitle}>Assignments</div>
-          <div className={styles.assignments}>
-            <div className={styles.assignment}>
-              <label className={styles.assignmentLabel}>
-                <input type="checkbox" className={styles.assignmentCheckbox} />
-                <div className={styles.assignmentName}>Group Project Assignment1</div>
-              </label>
-              <ul className={styles.detail}>
-                <li>Due May 13th 11:59PM</li>
-                <li>Description:</li>
-              </ul>
-            </div>
-            <div className={styles.assignment}>
-              <label className={styles.assignmentLabel}>
-                <input type="checkbox" className={styles.assignmentCheckbox} />
-                <div className={styles.assignmentName}>Group Project Assignment1</div>
-              </label>
-              <ul className={styles.detail}>
-                <li>Due May 13th 11:59PM</li>
-                <li>Description:</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+      <div className={styles.courseDetailPage}>
+      <div className={styles.rectangle}></div>
+      <div className={styles.content}>
+        <CourseHeader 
+          courseID={courseInfo.id} 
+          days={courseInfo.days} 
+          time={courseInfo.time} 
+        />
+        <div className={styles.dashedLine}></div>
+        <div className={styles.assignmentTitle}>Assignments</div>
+        <AssignmentList assignments={assignmentsList} />
       </div>
+    </div>
     )
 }
 
