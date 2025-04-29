@@ -9,7 +9,7 @@ import { getCourseAssignments} from "../../services/courseService";
 * IMPORTANT! Use this .module.css file so that the styles are contained for the current module instead of interfering with other files
 * To set styles for an element of a class, do <tag className={styles.class}></tag>, e.g. <div className={styles.inputWrapper}></div>
 * */
-import styles from "./UploadFile.module.css";
+import styles from "./CoursePage.module.css";
 
 
 function CoursePage(){
