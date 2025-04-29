@@ -93,10 +93,40 @@ function CoursePage(){
 
 
     return(
-        <div>
-            <h1>Course Page</h1>
-            <Link to="/">Back</Link>
+        <div className={styles.courseDetailPage}>
+        <div className={styles.rectangle}></div>
+        <div className={styles.content}>
+          <div className={styles.courseTitle}>
+            <div id={styles.courseID}>CSCI 270</div>
+            <div id={styles.day}>T/Th</div>
+            <div id={styles.time}>11:00AM - 12:20PM</div>
+          </div>
+          <div className={styles.dashedLine}></div>
+          <div className={styles.assignmentTitle}>Assignments</div>
+          <div className={styles.assignments}>
+            <div className={styles.assignment}>
+              <label className={styles.assignmentLabel}>
+                <input type="checkbox" className={styles.assignmentCheckbox} />
+                <div className={styles.assignmentName}>Group Project Assignment1</div>
+              </label>
+              <ul className={styles.detail}>
+                <li>Due May 13th 11:59PM</li>
+                <li>Description:</li>
+              </ul>
+            </div>
+            <div className={styles.assignment}>
+              <label className={styles.assignmentLabel}>
+                <input type="checkbox" className={styles.assignmentCheckbox} />
+                <div className={styles.assignmentName}>Group Project Assignment1</div>
+              </label>
+              <ul className={styles.detail}>
+                <li>Due May 13th 11:59PM</li>
+                <li>Description:</li>
+              </ul>
+            </div>
+          </div>
         </div>
+      </div>
     )
 }
 
