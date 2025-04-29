@@ -43,11 +43,11 @@ export function editAssignmentInfo(username, assignmentID){
 }
 
 /**
- * [Post] Remove Assignment
+ * [DELETE] Remove Assignment
  * @param {string} username
  * @param {string} assignmentID
  * TODO: Not Implemented
  */
 export function removeAssignment(username, assignmentID){
-    return api.post("/remove-assignment");
+    return api.delete("/remove-assignment");
 }
