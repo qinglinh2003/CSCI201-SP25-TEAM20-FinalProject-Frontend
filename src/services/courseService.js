@@ -41,3 +41,13 @@ export function joinCourse(username, courseID){
 export function leaveCourse(username, courseID){
     return api.patch("/leave-course");
 }
+
+/**
+ * [Patch] Get all assignments of a course
+ * @param {string} username
+ * @param {string} courseID
+ * TODO: Not Implemented
+ */
+export function getCourseAssignments(username, courseID){
+    return api.get("/get-course-assignments");
+}

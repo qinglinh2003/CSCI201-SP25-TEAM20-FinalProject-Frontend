@@ -41,3 +41,13 @@ export function markCompleteAssignment(username, assignmentID){
 export function editAssignmentInfo(username, assignmentID){
     return api.patch("/edit-assignment-info");
 }
+
+/**
+ * [Post] Remove Assignment
+ * @param {string} username
+ * @param {string} assignmentID
+ * TODO: Not Implemented
+ */
+export function removeAssignment(username, assignmentID){
+    return api.post("/remove-assignment");
+}

@@ -215,7 +215,7 @@ function UploadFile(){
                     className={`${styles.modeButton} ${mode === 'file' ? styles.active : ''}`}
                     onClick={() => handleModeSwitch('file')}
                 >
-                    File Upload
+                    Add Assignments
                 </div>
             </div>
             <div className={styles.inputUploadRegion}>
