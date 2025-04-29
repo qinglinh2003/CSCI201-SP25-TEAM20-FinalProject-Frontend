@@ -1,0 +1,280 @@
+a, a:visited {
+    color: inherit;
+    text-decoration: none;
+}
+
+.modalContainer{
+    font-family: 'Roboto Condensed', sans-serif;
+    background-color: #ffffff;
+    padding: 20px 60px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 30%;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.title{
+    padding: 11px 0;
+    font-weight: bold;
+    font-size: 2rem;
+
+}
+
+.closeButtonWrapper{
+    padding: 11px;
+    color:darkgray;
+    border-radius: 10px;
+}
+
+.modeSwitcher{
+    display: flex;
+    gap:30px;
+    margin-bottom: 20px;
+}
+
+.modeButton{
+    font-weight: bold;
+    padding: 0.3em 0em;
+    margin: 0.6rem  0.5rem 0.6rem  0rem;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+    background-color: white;
+    width:100px;
+    height:16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.active{
+    border-bottom:solid 3px #396aff;
+}
+
+
+
+
+.inputUploadRegion{
+    display: flex;
+    flex-direction: column;
+    gap:15px;
+}
+
+.fileUploadRegion {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #cacaca;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+.fileIcon{
+    height: 50px;
+    width: 50px;
+    color:#cacaca;
+}
+
+.fileUploadInstruction{
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+
+.browseText{
+    color:#396aff;
+}
+
+.manualInputRegion{
+
+}
+
+.manualInputRegion{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.inputLabel{
+    margin-bottom: 8px;
+}
+
+.inputIcon{
+    color:#757575;
+}
+
+
+.inputBar {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    padding: 8px 10px;
+    font-size: 1rem;
+    border: 1px #c4c4c4 solid;
+    border-radius: 5px;
+    width: 100%;
+    height: 56px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.inputBar:focus-within {
+    border: 2px solid #1876d2;
+}
+
+.inputText{
+    font-size: 0.9rem;
+    margin-left: 10px;
+    width: 80%;
+    border: none;
+    outline: none;
+}
+
+.dueDateSelector{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+}
+
+.dateSelectorDivider{
+    margin:0  20px;
+}
+
+.errorMessage{
+    color: #cc0000;
+    font-family: Poppins;
+    margin-left: 10px;
+}
+
+.dueDateTimeWrapper{
+    display: flex;
+    flex-direction: row;
+    gap:160px;
+}
+
+.errorInput{
+    border: solid 1px #cc0000;
+}
+
+.errorInput:focus-within{
+    border: solid 2px #cc0000;
+}
+
+.filePreviewWrapper{
+    background-color: #f6f6f6;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    border-radius: 10px;
+}
+
+.filePreviewWrapper .fileIcon{
+    color: #396aff;
+}
+
+.fileIconNameWrapper{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.fileName{
+    font-family: Roboto;
+    font-weight: bold;
+}
+
+.fileSize{
+    font-family: Roboto;
+    color: #949494;
+    font-size: 1rem;
+}
+
+.fileError{
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:#bd0b17;
+    opacity: 90%;
+    color: white;
+    font-size: 1.2rem;
+    border-radius: 10px;
+}
+
+.errorIcon, .closeIcon{
+    font-size: 2rem;
+
+}
+
+.divider{
+    border: none;
+    height: 1.5px;
+    background-color: grey;
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.submitRegion{
+    display: flex;
+    gap:40px;
+    justify-content: center;
+}
+
+.submitButton{
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 10px 75px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background-color: #396aff;
+    transition: background-color 0.3s ease;
+    color: white;
+}
+
+.submitButton:hover{
+    background-color: rgb(0, 71, 171);
+}
+
+.cancelButton{
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 10px 75px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease;
+}
+
+.cancelButton:hover{
+    background-color: #edecec;
+}
+
+
+
+
+
+
