@@ -8,7 +8,9 @@ import {
     faFileCsv,
     faChalkboardUser,
     faBook,
-    faInfoCircle, faFile, faArrowUpFromBracket, faTriangleExclamation
+    faInfoCircle,
+    faArrowUpFromBracket,
+    faTriangleExclamation
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./UploadFile.module.css";
 import CustomTimePicker from "../../components/TimePicker";
@@ -196,7 +198,7 @@ function UploadFile(){
     return(
         <div className={styles.modalContainer}>
             <div className={styles.header}>
-                <div className={styles.title}>Upload File</div>
+                <div className={styles.title}>Add Assignments</div>
                 <div className={styles.closeButtonWrapper}>
                     {/*Direct to home page when the close button is clicked*/}
                     <Link to="/">
@@ -215,7 +217,7 @@ function UploadFile(){
                     className={`${styles.modeButton} ${mode === 'file' ? styles.active : ''}`}
                     onClick={() => handleModeSwitch('file')}
                 >
-                    Add Assignments
+                    Upload File
                 </div>
             </div>
             <div className={styles.inputUploadRegion}>
