@@ -345,9 +345,8 @@ function UploadFile(){
             </div>
             <hr className={styles.divider}/>
             <div className={styles.submitRegion}>
-                <Link to="/">
-                    <div className={styles.cancelButton}>Cancel</div>
-                </Link>
+
+                <div className={styles.cancelButton}>Cancel</div>
                 <div className={styles.submitButton} onClick={handleSubmit}>Submit</div>
             </div>
         </div>
