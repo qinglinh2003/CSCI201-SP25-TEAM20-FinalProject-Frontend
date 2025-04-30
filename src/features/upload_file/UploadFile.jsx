@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { uploadFile, uploadManualInput } from "../../services/uploadFileService";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import CustomDatePicker from "../../components/DatePicker";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
@@ -17,6 +17,8 @@ import CustomTimePicker from "../../components/TimePicker";
 
 
 function UploadFile(){
+    const navigate = useNavigate();
+
     const fileInputRef = React.useRef(null);
 
     //manages current mode: manual input/file upload
@@ -42,14 +44,19 @@ function UploadFile(){
 
     const [file, setFile] = React.useState(null);
     const [fileError, setFileError] = React.useState(null);
+    const [submitError, setSubmitError] = React.useState(null);
     const [dragActive, setDragActive] = React.useState(false);
 
     const resetInputRegion = ()=>{
         setCourseName('');
+        setCourseNameError(false);
         setAssignmentName('');
+        setAssignmentNameError(false);
         setDescription('');
         setDueDate(null);
+        setDueDateError(false);
         setDueTime(new Date(new Date().setHours(23,59,0,0)));
+        setDueTimeError(false);
     }
 
     const resetFile = () => {
@@ -163,9 +170,11 @@ function UploadFile(){
             formData.append("file", file);
             try{
                 const response = await uploadFile(formData);
-                resetFile();
             }catch (error){
+                handleSubmitError();
                 console.error(error);
+            }finally {
+                resetFile();
             }
         }else if(mode === "manual"){
             if(!validateInputs()){
@@ -195,15 +204,22 @@ function UploadFile(){
         }
     }
 
+    const handleCancel = () => {
+        navigate("/");
+    }
+
+    const handleSubmitError = () => {
+        setSubmitError(true);
+    }
+
+
     return(
         <div className={styles.modalContainer}>
             <div className={styles.header}>
                 <div className={styles.title}>Add Assignments</div>
                 <div className={styles.closeButtonWrapper}>
                     {/*Direct to home page when the close button is clicked*/}
-                    <Link to="/">
-                        <FontAwesomeIcon icon={faXmark}/>
-                    </Link>
+                        <FontAwesomeIcon icon={faXmark} onClick={handleCancel}/>
                 </div>
             </div>
             <div className={styles.modeSwitcher}>
@@ -234,7 +250,7 @@ function UploadFile(){
                                 placeholder="Enter course name..."
                             />
                         </div>
-                        {courseNameError && <div className={styles.errorMessage}>{courseNameError}</div>}
+                        {courseNameError && <div className={styles.inputErrorMessage}>{courseNameError}</div>}
                     </div>
                     <div className={styles.inputWrapper}>
                         <label className={styles.inputLabel}>Assignment Name</label>
@@ -247,7 +263,7 @@ function UploadFile(){
                                    placeholder="Enter assignment name..."
                             />
                         </div>
-                        {assignmentNameError && <div className={styles.errorMessage}>{assignmentNameError}</div>}
+                        {assignmentNameError && <div className={styles.inputErrorMessage}>{assignmentNameError}</div>}
 
                     </div>
                     <div className={styles.inputWrapper}>
@@ -273,8 +289,8 @@ function UploadFile(){
                             />
                         </div>
                         <div className={styles.dueDateTimeWrapper}>
-                            {dueDateError && <div className={styles.errorMessage}>{dueDateError}</div>}
-                            {dueTimeError && <div className={styles.errorMessage}>{dueTimeError}</div>}
+                            {dueDateError && <div className={styles.inputErrorMessage}>{dueDateError}</div>}
+                            {dueTimeError && <div className={styles.inputErrorMessage}>{dueTimeError}</div>}
                         </div>
                     </div>
                     <div className={styles.inputWrapper}>
@@ -298,13 +314,12 @@ function UploadFile(){
                         onDragOver={handleDragOver}
                         onDrop={handleDrop}
                     >
-
                     <FontAwesomeIcon icon={faArrowUpFromBracket} className={styles.fileIcon}/>
                     <div className={styles.fileUploadInstruction}>
-                        Drag and Drop or
+                        Drag and Drop or {' '}
                         <span className={styles.browseText}   onClick={
                             () => fileInputRef.current.click()}
-                        > Browse</span> to <br/>
+                        >  Browse</span>  to <br/>
                         Upload CSV File
                     </div>
                     <input
@@ -319,35 +334,41 @@ function UploadFile(){
             {mode === 'file' &&  file &&
                 (<div className={styles.filePreviewWrapper}>
                     <div className={styles.fileIconNameWrapper}>
+
                         <FontAwesomeIcon icon={faFileCsv} className={styles.fileIcon}/>
                        <div className={styles.fileName}>
                         {file.name}
                        </div>
                     </div>
+
                     <div className={styles.fileSize}>
                         {formatFileSize(file.size)}
                     </div>
+                        <FontAwesomeIcon icon={faXmark} className={styles.removeFileIcon} onClick={resetFile}/>
                 </div>
                 )
             }
             {mode === 'file' && fileError && (
-                <div className={styles.fileError}>
+                <div className={styles.errorMsg}>
                     <FontAwesomeIcon className={styles.errorIcon} icon={faTriangleExclamation} />
                     <div>Please upload a .csv file</div>
                     <FontAwesomeIcon className={styles.closeIcon} icon={faXmark} onClick={() => setFileError(false)}/>
                 </div>
             )
-
-
-
+            }
+            {submitError && (
+                <div className={styles.errorMsg}>
+                    <FontAwesomeIcon className={styles.errorIcon} icon={faTriangleExclamation} />
+                    <div>Unsuccessful Submission</div>
+                    <FontAwesomeIcon className={styles.closeIcon} icon={faXmark} onClick={() => setSubmitError(false)}/>
+                </div>
+            )
             }
 
             </div>
             <hr className={styles.divider}/>
             <div className={styles.submitRegion}>
-                <Link to="/">
-                    <div className={styles.cancelButton}>Cancel</div>
-                </Link>
+                <div className={styles.cancelButton} onClick={handleCancel}>Cancel</div>
                 <div className={styles.submitButton} onClick={handleSubmit}>Submit</div>
             </div>
         </div>

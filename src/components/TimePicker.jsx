@@ -13,7 +13,6 @@ export default function CustomTimePicker({
      ampm = false,
      disabled = false,
      size = "small",
-     width=180,
      error=false
  }) {
     return (
@@ -31,7 +30,7 @@ export default function CustomTimePicker({
                 }}
                 ampm={ampm}
                 disabled={disabled}
-                renderInput={(params) => <TextField {...params} size={size} sx={{ width:width }}/>}
+                renderInput={(params) => <TextField {...params} size={size}/>}
             />
         </LocalizationProvider>
     );

@@ -4,13 +4,16 @@ a, a:visited {
 }
 
 .modalContainer{
+    position: relative;
     font-family: 'Roboto Condensed', sans-serif;
     background-color: #ffffff;
     padding: 20px 60px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    width: 30%;
-    margin: 40px auto;
+    width: 90%;
+    max-width: 500px;
+    min-width: 320px;
+    margin: 80px auto;
     display: flex;
     flex-direction: column;
     overflow: auto;
@@ -43,7 +46,7 @@ a, a:visited {
 
 .modeButton{
     font-weight: bold;
-    padding: 0.3em 0em;
+    padding: 0.6em 0em;
     margin: 0.6rem  0.5rem 0.6rem  0rem;
     border: 2px solid transparent;
     cursor: pointer;
@@ -51,6 +54,7 @@ a, a:visited {
     background-color: white;
     width:100px;
     height:16px;
+    white-space: nowrap;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,9 +63,6 @@ a, a:visited {
 .active{
     border-bottom:solid 3px #396aff;
 }
-
-
-
 
 .inputUploadRegion{
     display: flex;
@@ -163,7 +164,7 @@ a, a:visited {
     margin:0  20px;
 }
 
-.errorMessage{
+.inputErrorMessage{
     color: #cc0000;
     font-family: Poppins;
     margin-left: 10px;
@@ -213,22 +214,50 @@ a, a:visited {
     font-size: 1rem;
 }
 
-.fileError{
-    padding: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color:#bd0b17;
-    opacity: 90%;
+.errorMsg {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    background-color: #bd0b17;
     color: white;
-    font-size: 1.2rem;
-    border-radius: 10px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: fadeIn 0.3s ease;
 }
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 
 .errorIcon, .closeIcon{
     font-size: 2rem;
+    cursor: pointer;
+
 
 }
+
+.removeFileIcon{
+    opacity: 50%;
+    transition: opacity 0.3s ease;
+}
+
+.removeFileIcon:hover{
+    opacity: 100%;
+}
+
 
 .divider{
     border: none;
@@ -245,14 +274,20 @@ a, a:visited {
     justify-content: center;
 }
 
-.submitButton{
+
+.submitButton, .cancelButton{
+    flex: 1;
     border: 2px solid transparent;
     cursor: pointer;
-    padding: 10px 75px;
+    padding: 10px 0;
+    text-align: center;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    background-color: #396aff;
     transition: background-color 0.3s ease;
+}
+
+.submitButton{
+    background-color: #396aff;
     color: white;
 }
 
@@ -260,10 +295,12 @@ a, a:visited {
     background-color: rgb(0, 71, 171);
 }
 
-.cancelButton{
+{
+    flex: 1;
     border: 2px solid transparent;
     cursor: pointer;
-    padding: 10px 75px;
+    text-align: center;
+    padding: 12px 0;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: background-color 0.3s ease;
