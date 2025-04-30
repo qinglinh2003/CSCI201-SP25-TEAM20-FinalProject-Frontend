@@ -18,7 +18,6 @@ export default function CustomDatePicker({ label = "Select Date", value, onChang
                         error: error,
                     },
                 }}
-                sx={{ minWidth: 250 }}
                 renderInput={(params) => <TextField {...params} />}
             />
         </LocalizationProvider>

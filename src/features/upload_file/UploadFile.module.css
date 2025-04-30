@@ -9,7 +9,9 @@ a, a:visited {
     padding: 20px 60px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    width: 38%;
+    width: 90%;
+    max-width: 500px;
+    min-width: 320px;
     margin: 40px auto;
     display: flex;
     flex-direction: column;
@@ -240,10 +242,14 @@ a, a:visited {
 .submitRegion{
     display: flex;
     gap:40px;
+    /*justify-content: center;*/
     justify-content: center;
+    width: 100%;
 }
 
+
 .submitButton{
+    flex: 1;
     border: 2px solid transparent;
     cursor: pointer;
     padding: 10px 75px;
