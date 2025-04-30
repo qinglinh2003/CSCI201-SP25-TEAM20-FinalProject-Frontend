@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../features/course_page/CoursePage.module.css';
 
-export const AssignmentForm = ({ assignment, onSubmit, onCancel }) => {
+export const AssignmentForm = ({ assignment, onSubmit, onCancel, isAddingNew = false }) => {
   const [formData, setFormData] = useState({
     name: '',
     dueDate: '',
@@ -34,7 +34,7 @@ export const AssignmentForm = ({ assignment, onSubmit, onCancel }) => {
 
   return (
     <form className={styles.assignmentForm} onSubmit={handleSubmit}>
-      <h2>Edit Assignment</h2>
+      <h2>{isAddingNew ? 'Add New Assignment' : 'Edit Assignment'}</h2>
       
       <div className={styles.formGroup}>
         <label htmlFor="name">Assignment Name</label>
@@ -76,7 +76,7 @@ export const AssignmentForm = ({ assignment, onSubmit, onCancel }) => {
           Cancel
         </button>
         <button type="submit" className={styles.submitButton}>
-          Save Changes
+          {isAddingNew ? 'Add Assignment' : 'Save Changes'}
         </button>
       </div>
     </form>

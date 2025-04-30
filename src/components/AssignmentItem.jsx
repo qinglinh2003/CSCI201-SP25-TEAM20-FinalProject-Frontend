@@ -8,20 +8,20 @@ export const AssignmentItem = ({ name, dueDate, description, onEdit, onRemove })
         <input type="checkbox" className={styles.assignmentCheckbox} />
         <div className={styles.assignmentName}>
           {name}
-          <div className={styles.assignmentActions}>
-            <button 
-              className={styles.editButton} 
-              onClick={() => onEdit({ name, dueDate, description })}
-            >
-              Edit
-            </button>
-            <button 
-              className={styles.removeButton} 
-              onClick={() => onRemove({ name })}
-            >
-              Remove
-            </button>
-          </div>
+        </div>
+        <div className={styles.assignmentActions}>
+          <button 
+            className={styles.editButton} 
+            onClick={() => onEdit({ name, dueDate, description })}
+          >
+            Edit
+          </button>
+          <button 
+            className={styles.removeButton} 
+            onClick={() => onRemove({ name })}
+          >
+            Remove
+          </button>
         </div>
       </label>
       <ul className={styles.detail}>

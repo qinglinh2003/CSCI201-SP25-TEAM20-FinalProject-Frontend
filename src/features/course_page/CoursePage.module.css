@@ -70,6 +70,26 @@
     margin-left: 10%;
     font-size: 40px;
   }
+  /* edit buttons */
+  .assignmentActions {
+    display: flex;
+    margin-left: auto; /* This pushes the actions to the far right */
+  }
+
+  .editButton, .removeButton {
+    padding: 8px 16px;
+    font-size: 30px;
+    cursor: pointer;
+    width: 180px;
+    height: 60px;
+  }
+
+  .addButton {
+    display: flex;
+    font-size: 50px;
+    padding: 8px 16px;
+    margin-top: 80px;
+  }
 
   /* Modal styles */
 .modalOverlay {
@@ -181,3 +201,4 @@
 .submitButton:hover {
   background-color: #3a80d2;
 }
+

@@ -8,6 +8,7 @@ import { CourseHeader } from '../../components/CourseHeader';
 import { AssignmentList } from '../../components/AssignmentList';
 import { Modal } from '../../components/Modal';
 import { AssignmentForm } from '../../components/AssignmentForm';
+import { AddAssignmentButton } from '../../components/AddAssignmentButton';
 /*
 * IMPORTANT! Use this .module.css file so that the styles are contained for the current module instead of interfering with other files
 * To set styles for an element of a class, do <tag className={styles.class}></tag>, e.g. <div className={styles.inputWrapper}></div>
@@ -58,7 +59,7 @@ function CoursePage(){
     // State to store the current assignment being edited
     const [currentAssignment, setCurrentAssignment] = useState(null);
 
-    
+    const [isAddingAssignment, setIsAddingAssignment] = useState(false);
 
     //Load course assignments when the page is initiated
     useEffect(() => {
@@ -129,6 +130,7 @@ function CoursePage(){
       setEditingIndex(index);
       setCurrentAssignment(assignmentData);
       setIsModalOpen(true);
+      setIsAddingAssignment(false);
     };
   
     // Function to close modal
@@ -136,11 +138,17 @@ function CoursePage(){
       setIsModalOpen(false);
       setEditingIndex(null);
       setCurrentAssignment(null);
+      setIsAddingAssignment(false);
     };
   
     // Function to handle form submission
     const handleFormSubmit = (updatedData) => {
-      if (editingIndex !== null && assignments) {
+      if (isAddingAssignment) {
+        // Add new assignment
+        const newAssignments = [...assignments, updatedData];
+        setAssignments(newAssignments);
+      } else if (editingIndex !== null && assignments) {
+        // Edit existing assignment
         const newAssignments = [...assignments];
         newAssignments[editingIndex] = {
           ...newAssignments[editingIndex],
@@ -153,11 +161,19 @@ function CoursePage(){
   
     // Function to handle removing an assignment
     const handleRemoveAssignment = (index) => {
-      // In a real app, you might want to show a confirmation dialog
       const newAssignments = assignments.filter((_, i) => i !== index);
       setAssignments(newAssignments);
     };
 
+    const handleAddAssignmentClick = () => {
+      setIsAddingAssignment(true);
+      setCurrentAssignment({
+        name: "",
+        dueDate: "",
+        description: ""
+      });
+      setIsModalOpen(true);
+    };
 
 
     return(
@@ -176,8 +192,16 @@ function CoursePage(){
           onEditAssignment={handleOpenEditModal}
           onRemoveAssignment={handleRemoveAssignment}
         />
+        <div className={styles.addButtonContainer}>
+          <button 
+            className={styles.addButton}
+            onClick={handleAddAssignmentClick}
+          >
+            + Add Assignment
+          </button>
+        </div>
       </div>
-    
+
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <AssignmentForm 
           assignment={currentAssignment}
