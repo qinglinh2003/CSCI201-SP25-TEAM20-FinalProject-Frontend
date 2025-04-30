@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { uploadFile, uploadManualInput } from "../../services/uploadFileService";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import CustomDatePicker from "../../components/DatePicker";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
@@ -17,6 +17,8 @@ import CustomTimePicker from "../../components/TimePicker";
 
 
 function UploadFile(){
+    const navigate = useNavigate();
+
     const fileInputRef = React.useRef(null);
 
     //manages current mode: manual input/file upload
@@ -195,15 +197,17 @@ function UploadFile(){
         }
     }
 
+    const handleCancel = () => {
+        navigate("/");
+    }
+
     return(
         <div className={styles.modalContainer}>
             <div className={styles.header}>
                 <div className={styles.title}>Add Assignments</div>
                 <div className={styles.closeButtonWrapper}>
                     {/*Direct to home page when the close button is clicked*/}
-                    <Link to="/">
-                        <FontAwesomeIcon icon={faXmark}/>
-                    </Link>
+                        <FontAwesomeIcon icon={faXmark} onClick={handleCancel}/>
                 </div>
             </div>
             <div className={styles.modeSwitcher}>
@@ -298,7 +302,6 @@ function UploadFile(){
                         onDragOver={handleDragOver}
                         onDrop={handleDrop}
                     >
-
                     <FontAwesomeIcon icon={faArrowUpFromBracket} className={styles.fileIcon}/>
                     <div className={styles.fileUploadInstruction}>
                         Drag and Drop or {' '}
@@ -337,16 +340,12 @@ function UploadFile(){
                     <FontAwesomeIcon className={styles.closeIcon} icon={faXmark} onClick={() => setFileError(false)}/>
                 </div>
             )
-
-
-
             }
 
             </div>
             <hr className={styles.divider}/>
             <div className={styles.submitRegion}>
-
-                <div className={styles.cancelButton}>Cancel</div>
+                <div className={styles.cancelButton} onClick={handleCancel}>Cancel</div>
                 <div className={styles.submitButton} onClick={handleSubmit}>Submit</div>
             </div>
         </div>
