@@ -9,7 +9,7 @@ a, a:visited {
     padding: 20px 60px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    width: 30%;
+    width: 38%;
     margin: 40px auto;
     display: flex;
     flex-direction: column;
@@ -51,6 +51,7 @@ a, a:visited {
     background-color: white;
     width:100px;
     height:16px;
+    white-space: nowrap;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,9 +60,6 @@ a, a:visited {
 .active{
     border-bottom:solid 3px #396aff;
 }
-
-
-
 
 .inputUploadRegion{
     display: flex;

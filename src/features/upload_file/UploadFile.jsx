@@ -301,10 +301,10 @@ function UploadFile(){
 
                     <FontAwesomeIcon icon={faArrowUpFromBracket} className={styles.fileIcon}/>
                     <div className={styles.fileUploadInstruction}>
-                        Drag and Drop or
+                        Drag and Drop or {' '}
                         <span className={styles.browseText}   onClick={
                             () => fileInputRef.current.click()}
-                        > Browse</span> to <br/>
+                        >  Browse</span>  to <br/>
                         Upload CSV File
                     </div>
                     <input
