@@ -6,7 +6,8 @@ import { markCompleteAssignment, editAssignmentInfo, removeAssignment} from "../
 import { getCourseAssignments} from "../../services/courseService";
 import { CourseHeader } from '../../components/CourseHeader';
 import { AssignmentList } from '../../components/AssignmentList';
-
+import { Modal } from '../../components/Modal';
+import { AssignmentForm } from '../../components/AssignmentForm';
 /*
 * IMPORTANT! Use this .module.css file so that the styles are contained for the current module instead of interfering with other files
 * To set styles for an element of a class, do <tag className={styles.class}></tag>, e.g. <div className={styles.inputWrapper}></div>
@@ -15,6 +16,26 @@ import styles from "./CoursePage.module.css";
 
 
 function CoursePage(){
+  //placeholders pm;
+  const courseInfo = {
+    id: "CSCI 270",
+    days: "T/Th",
+    time: "11:00AM - 12:20PM"
+  };
+
+  const assignmentsList = [
+    {
+      name: "Group Project Assignment1",
+      dueDate: "May 13th 11:59PM",
+      description: ""
+    },
+    {
+      name: "Group Project Assignment1",
+      dueDate: "May 13th 11:59PM",
+      description: ""
+    }
+  ];
+
     //unique user identifier
     //TODO: This is temporary. Update to align with the real login implementation.
     const username = localStorage.getItem("username");
@@ -26,7 +47,18 @@ function CoursePage(){
     const [courseData, setCourseData] = useState(null);
 
     //Assignments for the course
-    const [assignments, setAssignments] = useState(null);
+    const [assignments, setAssignments] = useState(assignmentsList);
+    
+    // State for modal
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // State to track which assignment is being edited
+    const [editingIndex, setEditingIndex] = useState(null);
+        
+    // State to store the current assignment being edited
+    const [currentAssignment, setCurrentAssignment] = useState(null);
+
+    
 
     //Load course assignments when the page is initiated
     useEffect(() => {
@@ -72,13 +104,13 @@ function CoursePage(){
     * Remove an assignment
     * @param {string} assignmentID
     * */
-    const handleRemoveAssignment = async (assignmentID) => {
-        try {
-            const response = await removeAssignment(username, assignmentID);
-        } catch (e) {
+    // const handleRemoveAssignment = async (assignmentID) => {
+    //     try {
+    //         const response = await removeAssignment(username, assignmentID);
+    //     } catch (e) {
 
-        }
-    }
+    //     }
+    // }
 
     /*
     * Remove an assignment
@@ -93,28 +125,43 @@ function CoursePage(){
         }
     }
 
-    const courseInfo = {
-      id: "CSCI 270",
-      days: "T/Th",
-      time: "11:00AM - 12:20PM"
+    const handleOpenEditModal = (index, assignmentData) => {
+      setEditingIndex(index);
+      setCurrentAssignment(assignmentData);
+      setIsModalOpen(true);
     };
   
-    const assignmentsList = [
-      {
-        name: "Group Project Assignment1",
-        dueDate: "May 13th 11:59PM",
-        description: ""
-      },
-      {
-        name: "Group Project Assignment1",
-        dueDate: "May 13th 11:59PM",
-        description: ""
+    // Function to close modal
+    const handleCloseModal = () => {
+      setIsModalOpen(false);
+      setEditingIndex(null);
+      setCurrentAssignment(null);
+    };
+  
+    // Function to handle form submission
+    const handleFormSubmit = (updatedData) => {
+      if (editingIndex !== null && assignments) {
+        const newAssignments = [...assignments];
+        newAssignments[editingIndex] = {
+          ...newAssignments[editingIndex],
+          ...updatedData
+        };
+        setAssignments(newAssignments);
       }
-    ];
+      handleCloseModal();
+    };
+  
+    // Function to handle removing an assignment
+    const handleRemoveAssignment = (index) => {
+      // In a real app, you might want to show a confirmation dialog
+      const newAssignments = assignments.filter((_, i) => i !== index);
+      setAssignments(newAssignments);
+    };
+
 
 
     return(
-      <div className={styles.courseDetailPage}>
+    <div className={styles.courseDetailPage}>
       <div className={styles.rectangle}></div>
       <div className={styles.content}>
         <CourseHeader 
@@ -124,10 +171,22 @@ function CoursePage(){
         />
         <div className={styles.dashedLine}></div>
         <div className={styles.assignmentTitle}>Assignments</div>
-        <AssignmentList assignments={assignmentsList} />
+        <AssignmentList 
+          assignments={assignments || assignmentsList} 
+          onEditAssignment={handleOpenEditModal}
+          onRemoveAssignment={handleRemoveAssignment}
+        />
       </div>
+    
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        <AssignmentForm 
+          assignment={currentAssignment}
+          onSubmit={handleFormSubmit}
+          onCancel={handleCloseModal}
+        />
+      </Modal>
     </div>
-    )
+  )
 }
 
 export default CoursePage;
