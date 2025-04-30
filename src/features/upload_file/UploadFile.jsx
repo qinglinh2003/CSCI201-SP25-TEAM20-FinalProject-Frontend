@@ -165,9 +165,10 @@ function UploadFile(){
             formData.append("file", file);
             try{
                 const response = await uploadFile(formData);
-                resetFile();
             }catch (error){
                 console.error(error);
+            }finally {
+                resetFile();
             }
         }else if(mode === "manual"){
             if(!validateInputs()){
@@ -200,6 +201,7 @@ function UploadFile(){
     const handleCancel = () => {
         navigate("/");
     }
+
 
     return(
         <div className={styles.modalContainer}>
@@ -322,14 +324,17 @@ function UploadFile(){
             {mode === 'file' &&  file &&
                 (<div className={styles.filePreviewWrapper}>
                     <div className={styles.fileIconNameWrapper}>
+
                         <FontAwesomeIcon icon={faFileCsv} className={styles.fileIcon}/>
                        <div className={styles.fileName}>
                         {file.name}
                        </div>
                     </div>
+
                     <div className={styles.fileSize}>
                         {formatFileSize(file.size)}
                     </div>
+                        <FontAwesomeIcon icon={faXmark} className={styles.removeFileIcon} onClick={resetFile}/>
                 </div>
                 )
             }
