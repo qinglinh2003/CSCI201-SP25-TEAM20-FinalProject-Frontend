@@ -4,6 +4,7 @@ a, a:visited {
 }
 
 .modalContainer{
+    position: relative;
     font-family: 'Roboto Condensed', sans-serif;
     background-color: #ffffff;
     padding: 20px 60px;
@@ -12,7 +13,7 @@ a, a:visited {
     width: 90%;
     max-width: 500px;
     min-width: 320px;
-    margin: 40px auto;
+    margin: 80px auto;
     display: flex;
     flex-direction: column;
     overflow: auto;
@@ -163,7 +164,7 @@ a, a:visited {
     margin:0  20px;
 }
 
-.errorMessage{
+.inputErrorMessage{
     color: #cc0000;
     font-family: Poppins;
     margin-left: 10px;
@@ -213,20 +214,38 @@ a, a:visited {
     font-size: 1rem;
 }
 
-.fileError{
-    padding: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color:#bd0b17;
-    opacity: 90%;
+.errorMsg {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    background-color: #bd0b17;
     color: white;
-    font-size: 1.2rem;
-    border-radius: 10px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: fadeIn 0.3s ease;
 }
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 
 .errorIcon, .closeIcon{
     font-size: 2rem;
+    cursor: pointer;
+
 
 }
 

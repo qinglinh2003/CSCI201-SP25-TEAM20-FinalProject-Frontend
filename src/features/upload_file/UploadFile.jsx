@@ -44,14 +44,19 @@ function UploadFile(){
 
     const [file, setFile] = React.useState(null);
     const [fileError, setFileError] = React.useState(null);
+    const [submitError, setSubmitError] = React.useState(null);
     const [dragActive, setDragActive] = React.useState(false);
 
     const resetInputRegion = ()=>{
         setCourseName('');
+        setCourseNameError(false);
         setAssignmentName('');
+        setAssignmentNameError(false);
         setDescription('');
         setDueDate(null);
+        setDueDateError(false);
         setDueTime(new Date(new Date().setHours(23,59,0,0)));
+        setDueTimeError(false);
     }
 
     const resetFile = () => {
@@ -166,6 +171,7 @@ function UploadFile(){
             try{
                 const response = await uploadFile(formData);
             }catch (error){
+                handleSubmitError();
                 console.error(error);
             }finally {
                 resetFile();
@@ -200,6 +206,10 @@ function UploadFile(){
 
     const handleCancel = () => {
         navigate("/");
+    }
+
+    const handleSubmitError = () => {
+        setSubmitError(true);
     }
 
 
@@ -240,7 +250,7 @@ function UploadFile(){
                                 placeholder="Enter course name..."
                             />
                         </div>
-                        {courseNameError && <div className={styles.errorMessage}>{courseNameError}</div>}
+                        {courseNameError && <div className={styles.inputErrorMessage}>{courseNameError}</div>}
                     </div>
                     <div className={styles.inputWrapper}>
                         <label className={styles.inputLabel}>Assignment Name</label>
@@ -253,7 +263,7 @@ function UploadFile(){
                                    placeholder="Enter assignment name..."
                             />
                         </div>
-                        {assignmentNameError && <div className={styles.errorMessage}>{assignmentNameError}</div>}
+                        {assignmentNameError && <div className={styles.inputErrorMessage}>{assignmentNameError}</div>}
 
                     </div>
                     <div className={styles.inputWrapper}>
@@ -279,8 +289,8 @@ function UploadFile(){
                             />
                         </div>
                         <div className={styles.dueDateTimeWrapper}>
-                            {dueDateError && <div className={styles.errorMessage}>{dueDateError}</div>}
-                            {dueTimeError && <div className={styles.errorMessage}>{dueTimeError}</div>}
+                            {dueDateError && <div className={styles.inputErrorMessage}>{dueDateError}</div>}
+                            {dueTimeError && <div className={styles.inputErrorMessage}>{dueTimeError}</div>}
                         </div>
                     </div>
                     <div className={styles.inputWrapper}>
@@ -339,10 +349,18 @@ function UploadFile(){
                 )
             }
             {mode === 'file' && fileError && (
-                <div className={styles.fileError}>
+                <div className={styles.errorMsg}>
                     <FontAwesomeIcon className={styles.errorIcon} icon={faTriangleExclamation} />
                     <div>Please upload a .csv file</div>
                     <FontAwesomeIcon className={styles.closeIcon} icon={faXmark} onClick={() => setFileError(false)}/>
+                </div>
+            )
+            }
+            {submitError && (
+                <div className={styles.errorMsg}>
+                    <FontAwesomeIcon className={styles.errorIcon} icon={faTriangleExclamation} />
+                    <div>Unsuccessful Submission</div>
+                    <FontAwesomeIcon className={styles.closeIcon} icon={faXmark} onClick={() => setSubmitError(false)}/>
                 </div>
             )
             }
